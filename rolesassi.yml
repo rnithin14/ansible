@@ -1,0 +1,6 @@
+---
+- name: install httpd and docker  using role
+  hosts: all
+  roles:
+  - apache
+  - docker 

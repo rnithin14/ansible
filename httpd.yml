@@ -1,0 +1,21 @@
+---
+- name: "install httpd"
+  hosts: all
+  become: yes
+  tasks:
+    - name: httpd
+      apt: name=apache2  update_cache=yes state=latest
+      become: yes
+      become_method: "sudo"
+    - name: enabled mod_rewrite 
+      apache2_module: name=rewrite state=present
+      notify:
+        - restart apache2
+      become: yes
+      become_method: "sudo"
+  handlers:
+    - name: restart apache2
+      service: name=apache2 state=restarted
+      become: yes
+      become_method: "sudo"
+
